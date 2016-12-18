@@ -196,7 +196,7 @@ var optionalEndTagBlockElements = makeMap("colgroup,dd,dt,li,p,tbody,td,tfoot,th
 // Safe Block Elements - HTML5
 var blockElements = angular.extend({}, optionalEndTagBlockElements, makeMap("address,article," +
         "aside,blockquote,caption,center,del,dir,div,dl,figure,figcaption,footer,h1,h2,h3,h4,h5," +
-        "h6,header,hgroup,hr,ins,map,menu,nav,ol,pre,script,section,table,ul"));
+        "h6,header,hgroup,hr,ins,map,menu,nav,ol,pre,script,section,table,ul,style"));
 
 // Inline Elements - HTML5
 var inlineElements = angular.extend({}, optionalEndTagInlineElements, makeMap("a,abbr,acronym,b," +
@@ -211,7 +211,7 @@ var svgElements = makeMap("animate,animateColor,animateMotion,animateTransform,c
         "stop,svg,switch,text,title,tspan,use");
 
 // Special Elements (can contain anything)
-var specialElements = makeMap("script,style");
+var specialElements = makeMap("script");
 
 var validElements = angular.extend({},
                                    voidElements,
@@ -625,14 +625,14 @@ function htmlSanitizeWriter(buf, uriValidator) {
         angular.forEach(attrs, function(value, key) {
           var lkey=angular.lowercase(key);
           var isImage=(tag === 'img' && lkey === 'src') || (lkey === 'background');
-          if ((lkey === 'style' && (value = validStyles(value)) !== '') || validCustomTag(tag, attrs, lkey, value) || validAttrs[lkey] === true &&
-            (uriAttrs[lkey] !== true || uriValidator(value, isImage))) {
-            out(' ');
-            out(key);
-            out('="');
-            out(encodeEntities(value));
-            out('"');
-          }
+          // if ((lkey === 'style' && (value = validStyles(value)) !== '') || validCustomTag(tag, attrs, lkey, value) || validAttrs[lkey] === true &&
+          //   (uriAttrs[lkey] !== true || uriValidator(value, isImage))) {
+          //   out(' ');
+          //   out(key);
+          //   out('="');
+          //   out(encodeEntities(value));
+          //   out('"');
+          // }
         });
         out(unary ? '/>' : '>');
       }
